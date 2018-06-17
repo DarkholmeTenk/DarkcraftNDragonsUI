@@ -15,7 +15,7 @@ class API{
             return cachedData[name]
         else
         {
-            cachedData[name] = window.fetch(Config.url +"/debug/getMonster?name="+name)
+            cachedData[name] = window.fetch(Config.url +"/sheet/getMonster?name="+name)
                 .then(r=>r.json())
                 .then(j=>{
                     console.log(j)
