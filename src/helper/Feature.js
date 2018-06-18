@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Field from './Field.js'
@@ -11,7 +10,8 @@ const style = theme =>({
     main: {},
     numbers: {
         display:'flex',
-        flexDirection:'row'
+        flexDirection:'row',
+        textAlign:'center'
     },
     name: {},
     text: {}

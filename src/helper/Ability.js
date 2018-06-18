@@ -13,7 +13,7 @@ class Ability extends Component {
     }
 
     render(){
-        return <img src={this.getImage()}/>
+        return <img src={this.getImage()} alt={this.props.type}/>
     }
 }
 

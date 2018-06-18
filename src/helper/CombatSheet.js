@@ -35,9 +35,12 @@ const style = theme=>({
     featureContainer:{
         display: 'flex',
         justifyContent:'space-evenly',
+        flexWrap: 'wrap',
         width: '100%'
     },
     featurePaper: {
+        flexBasis:'25%',
+        flexGrow:1,
         padding: '8px',
         margin: '8px'
     }

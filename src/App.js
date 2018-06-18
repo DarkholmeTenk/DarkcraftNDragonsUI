@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, Switch } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button'
@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import './App.css';
 
 import MonsterList from './monster/MonsterList.js';
+import CombatPage from './combat/CombatPage.js'
 
 class App extends Component {
   render() {
@@ -15,9 +16,13 @@ class App extends Component {
         <AppBar position="static">
           <Toolbar>
             <Button component={Link} color="inherit" to='/monsters'>Monsters</Button>
+            <Button component={Link} color="inherit" to='/combat'>Combat</Button>
           </Toolbar>
         </AppBar>
-        <Route path='/monsters/:filter?' component={MonsterList}/>
+        <Switch>
+          <Route path='/monsters/:filter?' component={MonsterList}/>
+          <Route path='/combat/' component={CombatPage}/>
+        </Switch>
       </div>
     );
   }
