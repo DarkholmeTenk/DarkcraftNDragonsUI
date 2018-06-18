@@ -7,6 +7,7 @@ import Field from './Field.js'
 import StatSheet from './StatSheet.js'
 import MoveSheet from './MoveSheet.js'
 import FeatureList from './FeatureList.js'
+import Spellcasting from './spells/Spellcasting';
 
 import armor from '../icons/breastplate.svg'
 import hp from '../icons/health-normal.svg'
@@ -33,10 +34,10 @@ const style = theme=>({
     },
     featureContainer:{
         display: 'flex',
+        justifyContent:'space-evenly',
         width: '100%'
     },
     featurePaper: {
-        flexGrow: 1,
         padding: '8px',
         margin: '8px'
     }
@@ -48,7 +49,13 @@ class CombatSheet extends Component {
         const d = this.props.data;
         if(d[key] && d[key].length > 0)
             return <Paper className={c.featurePaper}><FeatureList data={d[key]} name={name} /></Paper>
+    }
 
+    spellList() {
+        const c = this.props.classes;
+        const d = this.props.data;
+        if(d.spellcasting)
+            return <Paper className={c.featurePaper}><Spellcasting data={d.spellcasting} /></Paper>
     }
 
     render()
@@ -69,6 +76,7 @@ class CombatSheet extends Component {
                 {this.featureList("Actions", "actions")}
                 {this.featureList("Special Abilities", "specialAbilities")}
                 {this.featureList("Legendary Actions","legendaryActions")}
+                {this.spellList()}
             </div>
         </div>
     }

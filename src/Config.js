@@ -1,5 +1,5 @@
 class Config{
 }
 
-Config.url =  'http://localhost:8080';
+Config.url =  'http://localhost:8090';
 export default Config

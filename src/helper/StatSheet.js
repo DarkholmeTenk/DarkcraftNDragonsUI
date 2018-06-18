@@ -4,12 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import Field from './Field.js'
-import str from '../icons/weight-lifting-up.svg'
-import dex from '../icons/bullseye.svg'
-import con from '../icons/first-aid-kit.svg'
-import int from '../icons/smart.svg'
-import wis from '../icons/owl.svg'
-import cha from '../icons/charm.svg'
+import Ability from  './Ability.js'
 
 const style = theme=>({
     div:{
@@ -51,9 +46,10 @@ class StatSheet extends Component {
         else return mod
     }
 
-    getStat(img, desc, vstr, skipBorder) {
+    getStat(desc, vstr, skipBorder) {
         const d = this.props.data
         const s = this.props.saves;
+        let img = Ability.getImage(vstr);
         let value = d[vstr] || 10
         let save = s[vstr] || 0
         let mod = null;
@@ -74,12 +70,12 @@ class StatSheet extends Component {
         const c = this.props.classes
         
         return <div className={c.div}>
-            {this.getStat(str, "Strength", 'str')}
-            {this.getStat(dex, "Dexterity", 'dex')}
-            {this.getStat(con, "Constitution", 'con')}
-            {this.getStat(int, "Intelligence", 'int')}
-            {this.getStat(wis, "Wisdom", 'wis')}
-            {this.getStat(cha, "Charisma", 'chr', true)}
+            {this.getStat("Strength", 'str')}
+            {this.getStat("Dexterity", 'dex')}
+            {this.getStat("Constitution", 'con')}
+            {this.getStat("Intelligence", 'int')}
+            {this.getStat("Wisdom", 'wis')}
+            {this.getStat( "Charisma", 'chr', true)}
             </div>
     }
 }
