@@ -73,7 +73,10 @@ class CombatSetList extends Component {
     }
 
     open(id) {
-        this.props.history.push(this.props.match.url+"/"+id)
+        let urlSoFar = this.props.match.url
+        if(!urlSoFar.endsWith("/"))
+            urlSoFar = urlSoFar + "/"
+        this.props.history.push(urlSoFar+id)
     }
 
     render() {

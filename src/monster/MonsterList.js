@@ -14,9 +14,14 @@ class MonsterList extends Component {
             .then(n=>this.setState({monsters:n}))
     }
 
+    getDefaultFilter() {
+        if(this.props && this.props.match && this.props.match.params.filter)
+            return this.props.match.params.filter
+        return ""
+    }
+
     componentWillMount(){
-        if(this.props && this.props.match.params.filter)
-            this.setState({filter:this.props.match.params.filter})
+        this.setState({filter:this.getDefaultFilter()})
     }
 
     changeFilter(e){
@@ -29,9 +34,9 @@ class MonsterList extends Component {
     render() {  
         let m = this.state.monsters
             .filter((d)=>d.toLowerCase().includes(this.state.filter.toLowerCase()))
-            .map(i=><MonsterInfo name={i} key={i} />)
+            .map(i=><MonsterInfo name={i} key={i} summaryInfo={this.props.summaryInfo}/>)
         return <div>
-            <TextField label="Filter" defaultValue={this.props.match.params.filter} onChange={(e)=>this.changeFilter(e)} />
+            <TextField label="Filter" defaultValue={this.getDefaultFilter()} onChange={(e)=>this.changeFilter(e)} />
             {m}
         </div>
     }

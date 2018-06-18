@@ -23,7 +23,7 @@ class MonsterInfo extends Component {
 
     render() {
         return <ExpansionPanel onChange={()=>this.onChange()}>
-                <ExpansionPanelSummary>{this.props.name}</ExpansionPanelSummary>
+                <ExpansionPanelSummary>{this.props.name}{this.props.summaryInfo}</ExpansionPanelSummary>
                 <ExpansionPanelDetails><MonsterDetails data={this.state.data} /></ExpansionPanelDetails>
             </ExpansionPanel>
     }

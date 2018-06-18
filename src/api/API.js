@@ -2,6 +2,7 @@ import Config from '../Config.js'
 
 
 const cachedData = {}
+const cachedSheets = {}
 
 class API{
     requestMonsterNames() {
@@ -25,13 +26,13 @@ class API{
     }
 
     requestCombatSetList() {
-        console.log("RCSL")
         return window.fetch(Config.url + "/combat/getAllCombats")
             .then(r=>r.json())
     }
 
     requestCombatSet(id) {
         return window.fetch(Config.url + "/combat/get?name="+id)
+            .then((r)=>r.json())
     }
 
     saveCombatSet(set) {
@@ -44,6 +45,31 @@ class API{
                 method: 'POST'
             })
             .then((r)=>r.json())
+    }
+
+    requestQuickSheets() {
+        return window.fetch(Config.url + "/sheet/getQuickSheets")
+            .then(r=>r.json())
+    }
+
+    saveQuickSheet(sheet) {
+        console.log(sheet)
+        return window.fetch(Config.url + "/sheet/saveQuickSheet", {
+                body: JSON.stringify(sheet),
+                headers: { 'content-type': 'application/json' },
+                method: 'POST'
+            })
+            .then((r)=>r.json())
+    }
+
+    requestSheet(type, id) {
+        if(!cachedSheets[type])
+            cachedSheets[type] = {}
+        if(!cachedSheets[type][id]) {
+            cachedSheets[type][id] = window.fetch(Config.url+"/sheet/getSheet?type="+type+"&id="+id)
+                .then((r)=>r.json())
+        }
+        return cachedSheets[type][id]
     }
 }
 
