@@ -11,6 +11,10 @@ const style = theme=>({
     drawer:{
         minWidth:'20%',
         maxWidth:'75%'
+    },
+    permDrawer:{
+        width:'25%',
+        maxWidth:'25%'
     }
 })
 
@@ -28,7 +32,7 @@ class CombatSet extends Component {
             .then((data)=>this.setState({data:data}))
     }
 
-    saveCombatSet(set) {
+    save(set) {
         return api.saveCombatSet(set)
     }
 
@@ -58,7 +62,7 @@ class CombatSet extends Component {
         let id = this.props.match.params.combatID
         if(this.state && this.state.data)
         {
-            let drawer = <SheetDrawer onAdd={(a)=>this.addActor(a)}/>
+            let drawer = <SheetDrawer onAdd={(t,i)=>this.addActor(t,i)}/>
             let d = this.state.data
             return <div className={c.root}>
                 <Typography variant='title'>
@@ -74,7 +78,7 @@ class CombatSet extends Component {
                     </Drawer>
                 </Hidden>
                 <Hidden smDown implementation="css">
-                <Drawer classes={{paper:c.drawer}} variant="permanent" anchor='right' open>
+                <Drawer classes={{paper:c.permDrawer}} variant="permanent" anchor='right' open>
                     {drawer}
                 </Drawer>
                 </Hidden>

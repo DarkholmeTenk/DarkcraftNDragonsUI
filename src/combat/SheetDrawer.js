@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { BottomNavigation, BottomNavigationAction, Button, IconButton } from '@material-ui/core';
 import MonsterList from '../monster/MonsterList';
+import API from '../api/API.js';
 
 const style = theme => ({
     root:{
@@ -13,6 +14,8 @@ const style = theme => ({
     }
 })
 
+const api = new API()
+
 class SheetDrawer extends Component {
     constructor() {
         super()
@@ -22,10 +25,15 @@ class SheetDrawer extends Component {
     openDrawer(e,i) {
         this.setState({drawer:i})
     }
+
+    clickMonster(n) {
+        api.requestMonsterData(n)
+            .then(d=>this.props.onAdd('MONSTER',d.id))
+    }
     
     getContents() {
         if(this.state.drawer == 0)
-            return <MonsterList />
+            return <MonsterList onAdd={n=>this.clickMonster(n)} />
     }
 
     render()

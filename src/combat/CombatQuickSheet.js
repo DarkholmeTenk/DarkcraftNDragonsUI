@@ -3,6 +3,7 @@ import MonsterDetails from '../monster/MonsterDetails';
 import Field from '../helper/Field';
 
 import health from '../icons/health-normal.svg'
+import { Typography } from '@material-ui/core';
 
 class CombatQuickSheet extends Component {
     constructor(){
@@ -21,6 +22,7 @@ class CombatQuickSheet extends Component {
         const d = this.props.data
 
         return <div>
+                <Typography variant='display1'>{d.sheetName}</Typography>
                 <Field image={health} desc="Current Health" value={d.hp} />
             </div>
     }
@@ -28,7 +30,7 @@ class CombatQuickSheet extends Component {
 
 CombatQuickSheet.produceDefaultData = function(realSheet) {
     return {
-        type:realSheet.type,
+        type:realSheet.sheetType,
         id:realSheet.id,
         hp:realSheet.maxHP,
         quickName:"",
