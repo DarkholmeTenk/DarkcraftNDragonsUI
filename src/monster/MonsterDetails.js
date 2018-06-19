@@ -14,7 +14,8 @@ class MonsterDetails extends Component {
             const d = this.props.data
             return <CombatSheet data={d} />
         }
-        return <LinearProgress />
+        else
+            return <LinearProgress />
     }
 }
 

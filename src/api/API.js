@@ -35,6 +35,10 @@ class API{
     requestCombatSet(id) {
         return window.fetch(Config.url + "/combat/get?name="+id)
             .then((r)=>r.json())
+            .then((r)=>{
+                r.actors.forEach((v,k)=>v.key=k)
+                return r
+            })
     }
 
     saveCombatSet(set) {

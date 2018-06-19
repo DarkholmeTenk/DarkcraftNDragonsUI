@@ -23,7 +23,6 @@ class Spellcasting extends Component {
     getSlotArray() {
         let d = this.props.data
         let c = this.props.classes
-        console.log(d)
         return Object.keys(d.spells).map((i)=>{
             let s = d.spells[i]
             let slots = d.slots[i] || "-"
