@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 const style = theme => ({
     div:{
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        alignItems:'center'
     },
     img:{
         width: '32px',

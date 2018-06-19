@@ -1,13 +1,15 @@
 import Config from '../Config.js'
 
-
+var cachedML = null
 const cachedData = {}
 const cachedSheets = {}
 
 class API{
     requestMonsterNames() {
-        return window.fetch(Config.url +"/sheet/getMonsterNames")
-            .then(r=>r.json());
+        if(!cachedML)
+            cachedML = window.fetch(Config.url +"/sheet/getMonsterNames")
+                .then(r=>r.json());
+        return cachedML
     }
 
     requestMonsterData(name) {

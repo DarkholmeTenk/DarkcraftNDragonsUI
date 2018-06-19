@@ -33,4 +33,8 @@ Ability.getImage = function(x) {
         return cha
 }
 
+Ability.getMod = function(x) {
+    return Math.floor((x - 10) / 2)
+}
+
 export default Ability

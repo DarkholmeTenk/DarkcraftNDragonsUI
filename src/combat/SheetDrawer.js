@@ -4,13 +4,19 @@ import { BottomNavigation, BottomNavigationAction, Button, IconButton } from '@m
 import MonsterList from '../monster/MonsterList';
 import API from '../api/API.js';
 
+import monster from '../icons/sharp-smile.svg'
+
 const style = theme => ({
     root:{
     },
     nav:{
-        position:'absolute',
+        position:'sticky',
         bottom:'0px',
         width:'100%'
+    },
+    navIcon:{
+        width:'16px',
+        height:'16px'
     }
 })
 
@@ -33,7 +39,7 @@ class SheetDrawer extends Component {
     
     getContents() {
         if(this.state.drawer == 0)
-            return <MonsterList onAdd={n=>this.clickMonster(n)} />
+            return <MonsterList onAdd={n=>this.clickMonster(n)} noDetail />
     }
 
     render()
@@ -44,7 +50,7 @@ class SheetDrawer extends Component {
             DRAWER
             {this.getContents()}
             <BottomNavigation className={c.nav} value={s.drawer} onChange={(e,i)=>this.openDrawer(e,i)}showLabels>
-                <BottomNavigationAction label='Monsters' icon='M'/>
+                <BottomNavigationAction label='Monsters' icon={<img src={monster} className={c.navIcon} alt='monsters' />}/>
                 <BottomNavigationAction label='Quick Sheets'/>
             </BottomNavigation>
         </div>
