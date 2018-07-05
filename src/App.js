@@ -8,6 +8,7 @@ import './App.css';
 
 import MonsterList from './monster/MonsterList.js';
 import CombatPage from './combat/CombatPage.js'
+import MonsterSheet from './monster/MonsterSheet';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Switch>
+          <Route path='/monster/:monster' component={MonsterSheet}/>
           <Route path='/monsters/:filter?' component={MonsterList}/>
           <Route path='/combat/' component={CombatPage}/>
         </Switch>

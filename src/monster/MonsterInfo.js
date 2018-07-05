@@ -22,12 +22,13 @@ const style = theme => ({
 })
 
 class MonsterInfo extends Component {
-    constructor() {
-        super();
-        this.state = {}
+
+    state = {
+        open: false
     }
 
     onChange() {
+        this.setState({open:!this.state.open})
         if(!this.state.data)
         {
             api.requestMonsterData(this.props.name)
@@ -35,14 +36,19 @@ class MonsterInfo extends Component {
         }
     }
 
+    getExpanded() {
+        if(this.state.open)
+            return <ExpansionPanelDetails><MonsterDetails data={this.state.data} /></ExpansionPanelDetails>
+    }
+
     render() {
         let c = this.props.classes
-        return <ExpansionPanel onChange={()=>this.onChange()}>
+        return <ExpansionPanel expanded={this.state.open} onChange={()=>this.onChange()}>
                 <ExpansionPanelSummary className={c.header} expandIcon='v'>
                     <Typography variant='title' className={c.title}>{this.props.name}</Typography>
                     <Typography variant='subheading' className={c.second}>{this.props.summaryInfo}</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails><MonsterDetails data={this.state.data} /></ExpansionPanelDetails>
+                {this.getExpanded()}
             </ExpansionPanel>
     }
 }
