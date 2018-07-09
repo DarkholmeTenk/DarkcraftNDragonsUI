@@ -5,6 +5,7 @@ import MonsterList from '../monster/MonsterList';
 import API from '../api/API.js';
 
 import monster from '../icons/sharp-smile.svg'
+import PlayerList from '../pc/PlayerList';
 
 const style = theme => ({
     root:{
@@ -40,6 +41,8 @@ class SheetDrawer extends Component {
     getContents() {
         if(this.state.drawer === 0)
             return <MonsterList onAdd={n=>this.clickMonster(n)} noDetail />
+        if(this.state.drawer == 1)
+            return <PlayerList button={p=><IconButton color='secondary' onClick={()=>this.props.onAdd('QUICK',p.id)}>+</IconButton>}/>
     }
 
     render()

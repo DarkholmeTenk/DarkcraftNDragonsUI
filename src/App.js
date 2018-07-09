@@ -8,6 +8,8 @@ import './App.css';
 
 import MonsterList from './monster/MonsterList.js';
 import CombatPage from './combat/CombatPage.js'
+import MonsterSheet from './monster/MonsterSheet';
+import PlayerPage from './pc/PlayerPage';
 
 class App extends Component {
   render() {
@@ -16,11 +18,14 @@ class App extends Component {
         <AppBar position="static">
           <Toolbar>
             <Button component={Link} color="inherit" to='/monsters'>Monsters</Button>
+            <Button component={Link} color="inherit" to='/players'>Players</Button>
             <Button component={Link} color="inherit" to='/combat'>Combat</Button>
           </Toolbar>
         </AppBar>
         <Switch>
+          <Route path='/monster/:monster' component={MonsterSheet}/>
           <Route path='/monsters/:filter?' component={MonsterList}/>
+          <Route path='/players/' component={PlayerPage}/>
           <Route path='/combat/' component={CombatPage}/>
         </Switch>
       </div>
