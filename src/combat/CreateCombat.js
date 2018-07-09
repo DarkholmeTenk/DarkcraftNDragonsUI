@@ -2,11 +2,9 @@ import React, {Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
 
-const style = theme=>{
+const style = theme=>({
     root: {}
-}
-
-
+})
 
 class CreateCombat extends Component {
     constructor() {

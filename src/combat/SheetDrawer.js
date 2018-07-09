@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles';
-import { BottomNavigation, BottomNavigationAction, Button, IconButton } from '@material-ui/core';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import MonsterList from '../monster/MonsterList';
 import API from '../api/API.js';
 
@@ -38,7 +38,7 @@ class SheetDrawer extends Component {
     }
     
     getContents() {
-        if(this.state.drawer == 0)
+        if(this.state.drawer === 0)
             return <MonsterList onAdd={n=>this.clickMonster(n)} noDetail />
     }
 

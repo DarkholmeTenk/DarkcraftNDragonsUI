@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Link, Route, Switch } from 'react-router-dom'
 import API from '../api/API';
 import CombatQuickSheet, {ProduceDefaultData} from './CombatQuickSheet';
-import { Typography, List, ListItem, Hidden, Drawer, IconButton, Tooltip, Button, Snackbar } from '@material-ui/core';
+import { Typography, Hidden, Drawer, IconButton, Tooltip, Button, Snackbar } from '@material-ui/core';
 import SheetDrawer from './SheetDrawer';
 
 const style = theme=>({
@@ -97,7 +96,6 @@ class CombatSet extends Component {
 
     render() {
         let c = this.props.classes
-        let id = this.props.match.params.combatID
         if(this.state && this.state.data)
         {
             let drawer = <SheetDrawer onAdd={(t,i)=>this.addActor(t,i)}/>
@@ -111,7 +109,7 @@ class CombatSet extends Component {
                         <Button onClick={()=>this.sort()}>Sort</Button>
                         <Tooltip title='Add Actors'><IconButton onClick={()=>this.handleDrawerToggle()}>+</IconButton></Tooltip>
                     </Typography>
-                    {d.actors.map((i,k)=><CombatQuickSheet key={i.key} data={i} isTurn={t == k} onChange={(f,v)=>this.changeActor(k,f,v)}/>)}
+                    {d.actors.map((i,k)=><CombatQuickSheet key={i.key} data={i} isTurn={t === k} onChange={(f,v)=>this.changeActor(k,f,v)}/>)}
                 </main>
                 <Hidden mdUp>
                     <Drawer classes={{paper:c.drawer}} variant="temporary" anchor='right' open={this.state.mobileOpen} onClose={()=>this.handleDrawerToggle()} ModalProps={{keepMounted: true}}>

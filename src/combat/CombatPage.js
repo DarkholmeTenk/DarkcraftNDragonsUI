@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Link, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import CombatSetList from './CombatSetList';
 import CombatSet from './CombatSet';
 
-const style = theme=>{
+const style = theme=>({
     root: {}
-}
+})
 
 class CombatPage extends Component {
     render() {

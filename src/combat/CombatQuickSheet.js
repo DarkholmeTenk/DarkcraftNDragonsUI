@@ -7,7 +7,6 @@ import API from '../api/API'
 
 import health from '../icons/health-normal.svg'
 import d20 from '../icons/d20.svg'
-import Ability from '../helper/Ability';
 
 const style = theme=>({
     root:{
@@ -58,7 +57,7 @@ class CombatQuickSheet extends Component {
         const d = this.state.data
 
         let x = null
-        if(d.type == "MONSTER" && this.state.realSheet)
+        if(d.type === "MONSTER" && this.state.realSheet)
             x = <MonsterDetails data={this.state.realSheet} />
 
         if(x)
@@ -68,7 +67,7 @@ class CombatQuickSheet extends Component {
     }
 
     onHpChange(newHP) {
-        let nHP = parseInt(newHP)
+        let nHP = parseInt(newHP, 10)
         let max = 1000000
         if(this.state.realSheet)
             max = this.state.realSheet.maxHP
@@ -91,14 +90,9 @@ class CombatQuickSheet extends Component {
     }
 
     onInitiativeChange(newInitiative) {
-        let nI = parseInt(newInitiative)
-        if(newInitiative == "" || nI < 1 || nI > 20)
+        let nI = parseInt(newInitiative, 10)
+        if(newInitiative === "")
             nI = -1;
-        else
-        {
-            // nI += Ability.getMod(this.state.realSheet.abilities.dex)
-        }
-        console.log(nI)
 
         this.setState({initiative:nI})
         this.props.onChange('initiative', nI)
@@ -106,7 +100,7 @@ class CombatQuickSheet extends Component {
 
     getInitiativeField() {
         let x = this.state.initiative
-        if(x == -1)
+        if(x === -1)
             x = ""
         return <TextField
             id = 'initiative'
@@ -131,7 +125,7 @@ class CombatQuickSheet extends Component {
 
     isOpen()
     {
-        if(this.props.isTurn && this.state.hp!=0)
+        if(this.props.isTurn && this.state.hp!==0)
         {
             let d = this.state.data
             if(!this.state.realSheet)
@@ -149,7 +143,7 @@ class CombatQuickSheet extends Component {
         const d = this.state.data
         const c = this.props.classes
 
-        let dead = this.state.hp==0
+        let dead = this.state.hp===0
         return <ExpansionPanel expanded={this.isOpen()} className={dead?c.dead:this.props.isTurn?c.turn:""}>
             <ExpansionPanelSummary classes={{content:c.summary}} onClick={e=>e.stopPropagation()}>
                 <Typography className={c.title}>{d.sheetName}</Typography>

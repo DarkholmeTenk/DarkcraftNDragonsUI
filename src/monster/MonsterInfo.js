@@ -6,7 +6,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 import MonsterDetails from './MonsterDetails.js';
 import API from '../api/API.js'
-import { Typography } from '@material-ui/core';
+import { Typography, CircularProgress } from '@material-ui/core';
 const api = new API();
 
 const style = theme => ({
@@ -35,6 +35,13 @@ class MonsterInfo extends Component {
         }
     }
 
+    getDetails() {
+        if(this.state.data)
+            return <MonsterDetails data={this.state.data} />
+        else
+            return <CircularProgress/>
+    }
+
     render() {
         let c = this.props.classes
         return <ExpansionPanel onChange={()=>this.onChange()}>
@@ -42,7 +49,7 @@ class MonsterInfo extends Component {
                     <Typography variant='title' className={c.title}>{this.props.name}</Typography>
                     <Typography variant='subheading' className={c.second}>{this.props.summaryInfo}</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails><MonsterDetails data={this.state.data} /></ExpansionPanelDetails>
+                <ExpansionPanelDetails>{this.getDetails()}</ExpansionPanelDetails>
             </ExpansionPanel>
     }
 }

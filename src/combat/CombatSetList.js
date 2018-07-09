@@ -48,7 +48,7 @@ class CombatSetList extends Component {
 
     renderSet() {
         const {data} = this.state;
-        if(data.length == 0)
+        if(data.length === 0)
             return <div>No combat encounters could be found</div>
         else {
             console.log(data)
