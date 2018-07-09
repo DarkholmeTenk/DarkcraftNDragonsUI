@@ -1,12 +1,13 @@
 import React, { Component } from 'react' 
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, TextField } from '@material-ui/core';
+import { Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, TextField, IconButton } from '@material-ui/core';
 import MonsterDetails from '../monster/MonsterDetails';
 import Field from '../helper/Field';
 import API from '../api/API'
 
 import health from '../icons/health-normal.svg'
 import d20 from '../icons/d20.svg'
+import PlayerSheet from '../pc/PlayerSheet';
 
 const style = theme=>({
     root:{
@@ -38,6 +39,12 @@ const style = theme=>({
     },
     turn:{
         backgroundColor:'#ffffaa',
+    },
+    note:{
+        flexGrow:'1'
+    },
+    magic:{
+        paddingRight:'0px !important'
     }
 })
 
@@ -59,6 +66,8 @@ class CombatQuickSheet extends Component {
         let x = null
         if(d.type === "MONSTER" && this.state.realSheet)
             x = <MonsterDetails data={this.state.realSheet} />
+        if(d.type === "QUICK" && this.state.realSheet)
+            x = <PlayerSheet data={this.state.realSheet} />
 
         if(x)
             return <ExpansionPanelDetails>
@@ -112,6 +121,7 @@ class CombatQuickSheet extends Component {
 
     getNoteNameField() {
         return <TextField
+            className={this.props.classes.note}
             id='quickName'
             label='Notes'
             value={this.state.quickName}
@@ -150,6 +160,7 @@ class CombatQuickSheet extends Component {
                 <Field classes={{div:c.fieldHolder}} image={health} desc="Current Health" value={this.getHPField()} />
                 <Field classes={{div:c.fieldHolder}} image={d20} desc="Initiative" value={this.getInitiativeField()} />
                 {this.getNoteNameField()}
+                <IconButton className={c.magic} onClick={()=>this.props.onRemove()} ><i className='material-icons'>delete</i></IconButton>
             </ExpansionPanelSummary>
             {this.getDetails()}
         </ExpansionPanel>

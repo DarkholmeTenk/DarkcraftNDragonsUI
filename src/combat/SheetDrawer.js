@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { BottomNavigation, BottomNavigationAction, IconButton } from '@material-ui/core';
 import MonsterList from '../monster/MonsterList';
 import API from '../api/API.js';
 
@@ -11,7 +11,7 @@ const style = theme => ({
     root:{
     },
     nav:{
-        position:'sticky',
+        position:'absolute',
         bottom:'0px',
         width:'100%'
     },

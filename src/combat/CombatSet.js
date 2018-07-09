@@ -94,6 +94,12 @@ class CombatSet extends Component {
         this.save(d)
     }
 
+    remove(k) {
+        let d = JSON.parse(JSON.stringify(this.state.data))
+        d.actors.splice(k,1)
+        return this.save(d)
+    }
+
     render() {
         let c = this.props.classes
         if(this.state && this.state.data)
@@ -109,7 +115,7 @@ class CombatSet extends Component {
                         <Button onClick={()=>this.sort()}>Sort</Button>
                         <Tooltip title='Add Actors'><IconButton onClick={()=>this.handleDrawerToggle()}>+</IconButton></Tooltip>
                     </Typography>
-                    {d.actors.map((i,k)=><CombatQuickSheet key={i.key} data={i} isTurn={t === k} onChange={(f,v)=>this.changeActor(k,f,v)}/>)}
+                    {d.actors.map((i,k)=><CombatQuickSheet key={i.key} data={i} isTurn={t === k} onRemove={()=>this.remove(k)} onChange={(f,v)=>this.changeActor(k,f,v)}/>)}
                 </main>
                 <Hidden mdUp>
                     <Drawer classes={{paper:c.drawer}} variant="temporary" anchor='right' open={this.state.mobileOpen} onClose={()=>this.handleDrawerToggle()} ModalProps={{keepMounted: true}}>

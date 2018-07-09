@@ -53,6 +53,16 @@ class PlayerListPage extends Component {
         const c = this.props.classes
         return <div className={c.root} >
             Player Sheets:
+            <Button color='primary' variant='fab' className={c.fab} onClick={()=>this.setState({createOpen:true})}>
+                <i className='material-icons'>create</i>
+            </Button>
+            <MyModal open={this.state.createOpen} onClose={()=>this.onCreateClose()}>
+                <Typography variant='title'>Create Character</Typography>
+                <TextField label='Character Name' id='name' value={this.state.createName} onChange={(e)=>this.setCreateName(e.target.value)} />
+                <Button color='primary' variant='fab' className={c.fab} onClick={()=>this.createClick()}>
+                    <i className='material-icons'>check</i>
+                </Button>
+            </MyModal>
             <PlayerList button={p=><Button color='secondary' onClick={()=>this.props.history.push("/players/id/"+p.id)}>Edit</Button>} />
         </div>
     }
