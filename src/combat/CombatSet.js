@@ -4,6 +4,11 @@ import API from '../api/API';
 import CombatQuickSheet, {ProduceDefaultData} from './CombatQuickSheet';
 import { Typography, Hidden, Drawer, IconButton, Tooltip, Button, Snackbar } from '@material-ui/core';
 import SheetDrawer from './SheetDrawer';
+import Field from '../helper/Field';
+
+import dice from '../icons/d20.svg'
+import Ability from '../helper/Ability';
+import DiceHelper from '../helper/DiceHelper';
 
 const style = theme=>({
     root: {},
@@ -100,6 +105,29 @@ class CombatSet extends Component {
         return this.save(d)
     }
 
+    rollInitiative() {
+        let monsters = {}
+        console.log(this.state.data.actors)
+        this.state.data.actors
+            .filter(i=>i.type === "MONSTER")
+            .map(i=>i.id)
+            .forEach(i=>monsters[i]=true)
+        Promise.all(Object.keys(monsters)
+            .map(m=>api.requestSheet("MONSTER", m)))
+            .then(m=>{
+                let monsters = {}
+                m.forEach(d=>d.initiative = Ability.getMod(d.abilities.dex))
+                m.forEach(d=>monsters[d.id] = d.initiative + DiceHelper.rollD20())
+                console.log(m, monsters)
+                let ns = JSON.parse(JSON.stringify(this.state.data))
+                ns.actors
+                    .filter(i=>i.type === "MONSTER")
+                    .forEach(i=>i.initiative = monsters[i.id] || 10)
+                api.saveCombatSet(ns)
+                    .then(()=>window.location.reload())
+            })
+    }
+
     render() {
         let c = this.props.classes
         if(this.state && this.state.data)
@@ -111,6 +139,7 @@ class CombatSet extends Component {
                 <main className={c.root}>
                     <Typography variant='title'>
                         Combat [{d.name}]
+                        <IconButton onClick={()=>this.rollInitiative()}><Field image={dice} desc="Roll Initiative" /></IconButton>
                         <Button onClick={()=>this.nextTurn()}>Next Turn</Button>
                         <Button onClick={()=>this.sort()}>Sort</Button>
                         <Tooltip title='Add Actors'><IconButton onClick={()=>this.handleDrawerToggle()}>+</IconButton></Tooltip>

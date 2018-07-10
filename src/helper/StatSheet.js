@@ -51,8 +51,8 @@ class StatSheet extends Component {
     }
 
     getEditable(desc, vstr, skipBorder) {
-        const d = this.props.data
-        const s = this.props.saves;
+        const d = this.props.data || {};
+        const s = this.props.saves || {};
         let img = Ability.getImage(vstr);
         let value = d[vstr] || 10
         let save = s[vstr] || 0
@@ -74,8 +74,8 @@ class StatSheet extends Component {
     }
 
     getStat(desc, vstr, skipBorder) {
-        const d = this.props.data
-        const s = this.props.saves;
+        const d = this.props.data || {};
+        const s = this.props.saves || {};
         let img = Ability.getImage(vstr);
         let value = d[vstr] || 10
         let save = s[vstr] || 0

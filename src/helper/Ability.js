@@ -34,6 +34,8 @@ Ability.getImage = function(x) {
 }
 
 Ability.getMod = function(x) {
+    if(!x || x === 10)
+        return 0
     return Math.floor((x - 10) / 2)
 }
 

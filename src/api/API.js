@@ -53,6 +53,10 @@ class API{
             .then((r)=>r.json())
     }
 
+    deleteCombatSet(id) {
+        return window.fetch(Config.url + "/combat/delete?id="+id)
+    }
+
     requestQuickSheets() {
         return window.fetch(Config.url + "/sheet/getQuickSheets")
             .then(r=>r.json())

@@ -1,5 +1,5 @@
 class Config{
 }
 
-Config.url =  'http://localhost:8090';
+Config.url =  'http://darkcraft.io:8090';
 export default Config

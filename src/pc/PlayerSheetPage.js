@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { withStyles, Paper, TextField, Typography } from '@material-ui/core';
+import { withStyles, Paper, TextField, Typography, Snackbar } from '@material-ui/core';
 import API from '../api/API';
 import { Route, Switch } from 'react-router-dom'
 import PlayerList from './PlayerList';
@@ -39,6 +39,7 @@ class PlayerSheetPage extends Component {
         super(props)
         this.id = props.match.params.id
         this.state = {
+            showSaveSnackbar: false
         }
     }
 
@@ -47,14 +48,24 @@ class PlayerSheetPage extends Component {
             .then(d=>this.setState({sheet:d}))
     }
 
+    saveSheet(ns) {
+        this.setState({sheet:ns});
+        if(this.saveTimeout)
+            clearTimeout(this.saveTimeout)
+        this.saveTimeout = setTimeout(()=>{
+            api.saveQuickSheet(ns)
+            this.setState({showSaveSnackbar: true})
+            setTimeout(()=>this.setState({showSaveSnackbar:false}), 1000)
+        }, 3000)
+    }
+
     changeField(field, value, isNum)
     {
         if(isNum && value%1!==0)
             return;
         let ns = JSON.parse(JSON.stringify(this.state.sheet))
         ns[field] = value;
-        api.saveQuickSheet(ns)
-        this.setState({sheet:ns})
+        this.saveSheet(ns)
     }
 
     changeNestedField(x, type, value)
@@ -63,8 +74,7 @@ class PlayerSheetPage extends Component {
         if(!ns[x])
             ns[x] = {}
         ns[x][type]=value
-        api.saveQuickSheet(ns)
-        this.setState({sheet:ns})
+        this.saveSheet(ns)
     }
 
     changeSpeed(type, value) {
@@ -99,6 +109,11 @@ class PlayerSheetPage extends Component {
                         <MoveSheet onChange={(t,s)=>this.changeSpeed(t,s)} data={s.speed} />
                     </Paper>
                 </div>
+                <Snackbar
+                    open={this.state.showSaveSnackbar}
+                    onClose={()=>this.setState({showSaveSnackbar:false})}
+                    message={<span id="message-id">Saved</span>}
+                    />
             </div>
         }
         return "HI"
